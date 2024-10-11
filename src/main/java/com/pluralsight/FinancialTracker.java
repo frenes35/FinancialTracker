@@ -52,6 +52,7 @@ public class FinancialTracker {
     }
 
     public static void loadTransactions(String fileName) {
+
         // This method should load transactions from a file with the given file name.
         // If the file does not exist, it should be created.
         // The transactions should be stored in the `transactions` ArrayList.
