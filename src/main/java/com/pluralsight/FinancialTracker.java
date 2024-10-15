@@ -105,7 +105,7 @@ public class FinancialTracker {
     }
 
 
-    private static void addDeposit(Scanner scanner)  {
+    private static void addDeposit(Scanner scanner) {
         // This method should prompt the user to enter the date, time, description, vendor, and amount of a deposit.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount should be a positive number.
@@ -147,7 +147,35 @@ public class FinancialTracker {
         // The amount received should be a positive number than transformed to a negative number.
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
-        
+
+
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println("Enter the date of the payment" + "(yyyy-MM-dd)");
+        LocalDate date = LocalDate.parse(scanner.nextLine(), fmt);
+
+        System.out.println("Enter the time of the payment (HH:mm:ss)");
+        LocalTime time = LocalTime.parse(scanner.nextLine(), fmt);
+
+        System.out.println("Enter the description of the payment");
+        String description = scanner.nextLine();
+
+        System.out.println("Enter the vendor of the payment");
+        String vendor = scanner.nextLine();
+
+        System.out.println("Enter the amount of the paymentw");
+        double amount = scanner.nextDouble();
+
+        if (amount <= 0) {
+            System.out.println("invalid input");
+            return;
+
+
+        }
+        amount = -Math.abs(amount);
+
+
+        transactions.add(new Transaction(date, time, description, vendor, amount));
+
     }
 
 
