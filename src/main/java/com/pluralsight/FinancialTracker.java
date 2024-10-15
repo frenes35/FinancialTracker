@@ -1,13 +1,12 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import javax.swing.text.DateFormatter;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.Scanner;
 
 public class FinancialTracker {
@@ -57,6 +56,14 @@ public class FinancialTracker {
     }
 
     public static void loadTransactions(String fileName) {
+        // This method should load transactions from a file with the given file name.
+        // If the file does not exist, it should be created.
+        // The transactions should be stored in the `transactions` ArrayList.
+        // Each line of the file represents a single transaction in the following format:
+        // <date>|<time>|<description>|<vendor>|<amount>
+        // For example: 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
+        // After reading all the transactions, the file should be closed.
+        // If any errors occur, an appropriate error message should be displayed.
         File file = new File(fileName);
 
         // Create the file if it doesn't exist
@@ -98,22 +105,39 @@ public class FinancialTracker {
     }
 
 
-    // This method should load transactions from a file with the given file name.
-    // If the file does not exist, it should be created.
-    // The transactions should be stored in the `transactions` ArrayList.
-    // Each line of the file represents a single transaction in the following format:
-    // <date>|<time>|<description>|<vendor>|<amount>
-    // For example: 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
-    // After reading all the transactions, the file should be closed.
-    // If any errors occur, an appropriate error message should be displayed.
-
-
-    private static void addDeposit(Scanner scanner) {
+    private static void addDeposit(Scanner scanner)  {
         // This method should prompt the user to enter the date, time, description, vendor, and amount of a deposit.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount should be a positive number.
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
+
+        //DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        System.out.println("Enter the date of the deposit" + "(yyyy-MM-dd)");
+        LocalDate date = LocalDate.parse(scanner.nextLine());
+
+        System.out.println("Enter the time of the deposit (HH:mm:ss)");
+        LocalTime time = LocalTime.parse(scanner.nextLine());
+
+        System.out.println("Enter the description of the deposit");
+        String description = scanner.nextLine();
+
+        System.out.println("Enter the vendor of the deposit");
+        String vendor = scanner.nextLine();
+
+        System.out.println("Enter the amount of the deposit");
+        double amount = scanner.nextDouble();
+
+        if (amount <= 0) {
+            System.out.println("invalid input");
+            return;
+
+
+        }
+
+
+        transactions.add(new Transaction(date, time, description, vendor, amount));
+
     }
 
     private static void addPayment(Scanner scanner) {
@@ -123,6 +147,7 @@ public class FinancialTracker {
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
     }
+
 
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
