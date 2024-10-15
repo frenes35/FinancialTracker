@@ -112,12 +112,13 @@ public class FinancialTracker {
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
 
-        //DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // date time formatter added for adjustment
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         System.out.println("Enter the date of the deposit" + "(yyyy-MM-dd)");
-        LocalDate date = LocalDate.parse(scanner.nextLine());
+        LocalDate date = LocalDate.parse(scanner.nextLine(), fmt);
 
         System.out.println("Enter the time of the deposit (HH:mm:ss)");
-        LocalTime time = LocalTime.parse(scanner.nextLine());
+        LocalTime time = LocalTime.parse(scanner.nextLine(), fmt);
 
         System.out.println("Enter the description of the deposit");
         String description = scanner.nextLine();
@@ -146,6 +147,7 @@ public class FinancialTracker {
         // The amount received should be a positive number than transformed to a negative number.
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
+        
     }
 
 
