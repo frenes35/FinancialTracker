@@ -21,11 +21,11 @@ public class Transaction {
     }
 
 
-    public LocalDate getDateTime() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

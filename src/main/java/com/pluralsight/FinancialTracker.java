@@ -68,22 +68,20 @@ public class FinancialTracker {
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-         String input;
-        while ((input=bufferedReader.readLine())!=null) {
-        String[] parts = input.split("\\|");
-        LocalDate date = LocalDate.parse(parts[0]);
-        LocalTime time = LocalTime.parse(parts[1]);
-        String description = parts[2];
-        String vendor = parts[3];
-        double price = Double.parseDouble(parts[4]);
+            String input;
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] parts = input.split("\\|");
+                LocalDate date = LocalDate.parse(parts[0]);
+                LocalTime time = LocalTime.parse(parts[1]);
+                String description = parts[2];
+                String vendor = parts[3];
+                double price = Double.parseDouble(parts[4]);
 
-            transactions.add(new Transaction(date, time, description, vendor, price));
-
-
+                transactions.add(new Transaction(date, time, description, vendor, price));
 
 
-        }
-        bufferedReader.close();
+            }
+            bufferedReader.close();
         } catch (Exception e) {
             try {
                 System.err.println("Related file does not exist.");
@@ -96,9 +94,6 @@ public class FinancialTracker {
         }
 
 
-
-
-
     }
 
 
@@ -109,13 +104,12 @@ public class FinancialTracker {
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
 
-        // date time formatter added for adjustment
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         System.out.println("Enter the date of the deposit" + "(yyyy-MM-dd)");
-        LocalDate date = LocalDate.parse(scanner.nextLine(), fmt);
+        LocalDate date = LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
 
         System.out.println("Enter the time of the deposit (HH:mm:ss)");
-        LocalTime time = LocalTime.parse(scanner.nextLine(), fmt);
+        LocalTime time = LocalTime.parse(scanner.nextLine(), TIME_FORMATTER);
 
         System.out.println("Enter the description of the deposit");
         String description = scanner.nextLine();
@@ -146,12 +140,11 @@ public class FinancialTracker {
         // The new payment should be added to the `transactions` ArrayList.
 
 
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         System.out.println("Enter the date of the payment" + "(yyyy-MM-dd)");
-        LocalDate date = LocalDate.parse(scanner.nextLine(), fmt);
+        LocalDate date = LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
 
         System.out.println("Enter the time of the payment (HH:mm:ss)");
-        LocalTime time = LocalTime.parse(scanner.nextLine(), fmt);
+        LocalTime time = LocalTime.parse(scanner.nextLine(), TIME_FORMATTER);
 
         System.out.println("Enter the description of the payment");
         String description = scanner.nextLine();
@@ -295,6 +288,28 @@ public class FinancialTracker {
         // The method loops through the transactions list and checks each transaction's date against the date range.
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
+
+        System.out.println("Transactions between " + startDate + " - " + endDate + ": ");
+
+
+        boolean running = false;
+
+
+        for (Transaction transaction : transactions) {
+
+            if (transaction.getDate().isAfter(startDate) && transaction.getDate().isBefore(endDate)) {
+
+                System.out.println(transaction.toString());
+
+                running = true;
+            }
+        }
+
+
+        if (!running) {
+
+            System.out.println("No transactions found.");
+        }
     }
 
     private static void filterTransactionsByVendor(String vendor) {
