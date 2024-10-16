@@ -18,6 +18,7 @@ public class FinancialTracker {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
+
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
@@ -64,44 +65,40 @@ public class FinancialTracker {
         // For example: 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
-        File file = new File(fileName);
 
-        // Create the file if it doesn't exist
-        if (!file.exists()) {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+         String input;
+        while ((input=bufferedReader.readLine())!=null) {
+        String[] parts = input.split("\\|");
+        LocalDate date = LocalDate.parse(parts[0]);
+        LocalTime time = LocalTime.parse(parts[1]);
+        String description = parts[2];
+        String vendor = parts[3];
+        double price = Double.parseDouble(parts[4]);
+
+            transactions.add(new Transaction(date, time, description, vendor, price));
+
+
+
+
+        }
+        bufferedReader.close();
+        } catch (Exception e) {
             try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
-                return;
+                System.err.println("Related file does not exist.");
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
+                bufferedWriter.close();
+            } catch (Exception ex) {
+                System.err.println("File could not created.");
+
             }
         }
 
-        // Load transactions from the file
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Split the line into its components
-                String[] parts = line.split("\\|");
-                if (parts.length == 5) {
-                    try {
-                        LocalDate date = LocalDate.parse(parts[0], DATE_FORMATTER);
-                        LocalTime time = LocalTime.parse(parts[1], TIME_FORMATTER);
-                        String description = parts[2];
-                        String vendor = parts[3];
-                        double amount = Double.parseDouble(parts[4]);
 
-                        // Create a new Transaction object and add it to the list
-                        transactions.add(new Transaction(date, time, description, vendor, amount));
-                    } catch (Exception e) {
-                        System.out.println("Error parsing line: " + line + " - " + e.getMessage());
-                    }
-                } else {
-                    System.out.println("Invalid transaction format: " + line);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading transactions: " + e.getMessage());
-        }
+
+
+
     }
 
 
@@ -217,6 +214,12 @@ public class FinancialTracker {
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
+
+        System.out.println("Date|Time|Description|Vendor|Amount");
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction);
+        }
+        
     }
 
     private static void displayDeposits() {
