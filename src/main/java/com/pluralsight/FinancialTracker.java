@@ -168,7 +168,7 @@ public class FinancialTracker {
 
 
         }
-        amount = -Math.abs(amount);
+        double negativeAmount = -amount;
 
 
         transactions.add(new Transaction(date, time, description, vendor, amount));
@@ -219,12 +219,19 @@ public class FinancialTracker {
         for (Transaction transaction : transactions) {
             System.out.println(transaction);
         }
-        
+
     }
 
     private static void displayDeposits() {
         // This method should display a table of all deposits in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
+
+        System.out.println("Date|Time|Description|Vendor|Amount");
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() > 0) {
+                System.out.println(transaction);
+            }
+        }
     }
 
     private static void displayPayments() {
