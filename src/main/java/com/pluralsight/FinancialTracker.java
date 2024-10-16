@@ -125,10 +125,22 @@ public class FinancialTracker {
             return;
 
 
+
         }
 
 
+
         transactions.add(new Transaction(date, time, description, vendor, amount));
+
+        BufferedWriter bufferedWriter = null;
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            bufferedWriter.write(transactions.toString());
+        } catch (Exception e) {
+            System.out.println("There is an error.");
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -165,6 +177,15 @@ public class FinancialTracker {
 
 
         transactions.add(new Transaction(date, time, description, vendor, amount));
+
+        BufferedWriter bufferedWriter = null;
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            bufferedWriter.write(transactions.toString());
+        } catch (Exception e) {
+            System.out.println("There is an error.");
+            e.printStackTrace();
+        }
 
     }
 
@@ -259,19 +280,38 @@ public class FinancialTracker {
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, time, description, vendor, and amount for each transaction.
+                    LocalDate startOfCurrentMonth = LocalDate.now().withDayOfMonth(1);
+                    LocalDate today = LocalDate.now();
+                    filterTransactionsByDate(startOfCurrentMonth, today);
+                    break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, time, description, vendor, and amount for each transaction.
+                    LocalDate startOfPreviousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(1);
+                    LocalDate endOfPreviousMonth = LocalDate.now().withDayOfMonth(1).minusDays(1);
+                    filterTransactionsByDate(startOfPreviousMonth, endOfPreviousMonth);
+                    break;
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, time, description, vendor, and amount for each transaction.
+                    LocalDate startOfCurrentYear = LocalDate.now().withDayOfYear(1);
+                    filterTransactionsByDate(startOfCurrentYear, LocalDate.now());
+                    break;
 
                 case "4":
                     // Generate a report for all transactions within the previous year,
                     // including the date, time, description, vendor, and amount for each transaction.
+                    LocalDate startOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(1);
+                    LocalDate endOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(LocalDate.now().minusYears(1).lengthOfYear());
+                    filterTransactionsByDate(startOfPreviousYear, endOfPreviousYear);
+                    break;
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, time, description, vendor, and amount for each transaction.
+                    System.out.println("Enter vendor name: ");
+                    String vendor = scanner.nextLine().trim();
+                    filterTransactionsByVendor(vendor);
+                    break;
                 case "0":
                     running = false;
                 default:
