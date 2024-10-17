@@ -1,18 +1,17 @@
 package com.pluralsight;
 
-import javax.swing.text.DateFormatter;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Formatter;
+
 import java.util.Scanner;
 
 public class FinancialTracker {
-
+    // niye transaction : her tipi kullanabilmek icin
     private static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-    private static final String FILE_NAME = "transactions.csv";
+    private static final String FILE_NAME = "transactions.csv"; //dosyanin adini degistirilmemesi icin.
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
@@ -22,6 +21,7 @@ public class FinancialTracker {
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
+        //loop a sokmak icin
         boolean running = true;
 
         while (running) {
@@ -67,7 +67,7 @@ public class FinancialTracker {
         // If any errors occur, an appropriate error message should be displayed.
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName)); // dosyayi okumak icin
             String input;
             while ((input = bufferedReader.readLine()) != null) {
                 String[] parts = input.split("\\|");
@@ -125,9 +125,7 @@ public class FinancialTracker {
             return;
 
 
-
         }
-
 
 
         transactions.add(new Transaction(date, time, description, vendor, amount));
@@ -302,7 +300,7 @@ public class FinancialTracker {
                     // Generate a report for all transactions within the previous year,
                     // including the date, time, description, vendor, and amount for each transaction.
                     LocalDate startOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(1);
-                    LocalDate endOfPreviousYear = LocalDate.now().minusYears(1).withDayOfYear(LocalDate.now().minusYears(1).lengthOfYear());
+                    LocalDate endOfPreviousYear = LocalDate.now().withDayOfYear(1).minusDays(1);
                     filterTransactionsByDate(startOfPreviousYear, endOfPreviousYear);
                     break;
                 case "5":
@@ -340,6 +338,8 @@ public class FinancialTracker {
         if (!running) {
 
             System.out.println("No transactions found.");
+
+
         }
     }
 

@@ -1,10 +1,10 @@
 package com.pluralsight;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
+import java.time.LocalTime;
+
+// we have a 5 variables here
 public class Transaction {
     private LocalDate date;
     private LocalTime time;
@@ -12,6 +12,8 @@ public class Transaction {
     private String vendor;
     private double amount;
 
+    // bu veraybilleri diger siniftada rahatlikla kullanabilmek icin i crated for here
+    // my construcker has 5 parameter
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
@@ -20,7 +22,8 @@ public class Transaction {
         this.amount = amount;
     }
 
-
+    //her variable has get and set
+    // yukardaki variablller public degil bu sinifta kullanabilirim. ama get set yaparsam diger siniflardada kullanabilirim.
     public LocalDate getDate() {
         return date;
     }
@@ -61,6 +64,7 @@ public class Transaction {
         this.time = time;
     }
 
+    //string olarak display edecek.
     @Override
     public String toString() {
         return "Transaction{" + "dateTime=" + date + ", description='" + description + '\'' + ", vendor='" + vendor + '\'' + ", amount=" + amount + '}';
