@@ -76,7 +76,7 @@ List resources such as tutorials, articles, or documentation that helped you dur
 First, I want to thank **Raymond** for teaching me Java.
 His lessons helped me understand the language and build this project.
 Thank you!
-I want to thank **Taha Bilmen** and **Emre Akarsu** and Yigit Demirci**
+I want to thank **Furkan Kendircioglu**, **Taha Bilmen**,**Emre Akarsu** and **Yigit Demirci**
 for their great support and motivation.
 They helped me when I had difficulties and encouraged me along the way.
 Their help made this project possible.

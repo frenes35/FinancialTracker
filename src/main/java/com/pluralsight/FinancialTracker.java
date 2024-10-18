@@ -58,7 +58,7 @@ public class FinancialTracker {
 
     public static void loadTransactions(String fileName) {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName)); // dosyayi okumak icin
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME)); // dosyayi okumak icin
             String input;
             while ((input = bufferedReader.readLine()) != null) {
                 String[] parts = input.split("\\|");
