@@ -12,8 +12,7 @@ public class Transaction {
     private String vendor;
     private double amount;
 
-    // bu veraybilleri diger siniftada rahatlikla kullanabilmek icin i crated for here
-    // my construcker has 5 parameter
+
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
@@ -22,8 +21,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    //her variable has get and set
-    // yukardaki variablller public degil bu sinifta kullanabilirim. ama get set yaparsam diger siniflardada kullanabilirim.
+
     public LocalDate getDate() {
         return date;
     }
@@ -67,6 +65,6 @@ public class Transaction {
     //string olarak display edecek.
     @Override
     public String toString() {
-        return "Transaction{" + "dateTime=" + date + ", description='" + description + '\'' + ", vendor='" + vendor + '\'' + ", amount=" + amount + '}';
+        return "Transaction " + "date=" + date + "|" + "time=" + time + "|" + ", description='" + description + "|" + ", vendor='" + vendor + "|" + ", amount=" + amount;
     }
 }
