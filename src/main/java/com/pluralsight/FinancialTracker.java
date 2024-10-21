@@ -37,9 +37,11 @@ public class FinancialTracker {
             switch (input.toUpperCase()) {
                 case "D":
                     addDeposit(scanner);
+                    scanner.nextLine();
                     break;
                 case "P":
                     addPayment(scanner);
+                    scanner.nextLine();
                     break;
                 case "L":
                     ledgerMenu(scanner);
@@ -56,7 +58,7 @@ public class FinancialTracker {
         scanner.close();
     }
 
-    public static void loadTransactions(String fileName) {
+    public static void loadTransactions(String fileName) { //read file
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME)); // dosyayi okumak icin
             String input;
@@ -79,7 +81,7 @@ public class FinancialTracker {
 
     private static void addDeposit(Scanner scanner) {
 
-        System.out.println("Enter the date of the deposit" + "(yyyy-MM-dd)");
+        System.out.println("Enter the date of the deposit" + "(yyyy-MM-dd)"); // input from users
         LocalDate date = LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
 
         System.out.println("Enter the time of the deposit (HH:mm:ss)");
@@ -100,8 +102,6 @@ public class FinancialTracker {
 
 
         }
-
-
         transactions.add(new Transaction(date, time, description, vendor, amount)); // i created new transaction object and added to transaction array list.
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
@@ -111,9 +111,9 @@ public class FinancialTracker {
                     vendor + "|" +
                     amount);
             bufferedWriter.newLine(); // Yeni satır ekleyin
-        } catch (IOException e) {
-            System.out.println("There is an error.");
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("There is an error.");
+           // e.printStackTrace(); (we can find where is the error) exact error
         }
 
 
@@ -154,9 +154,9 @@ public class FinancialTracker {
                     vendor + "|" +
                     negativeAmount);
             bufferedWriter.newLine(); // Yeni satır ekleyin
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("There is an error.");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -308,7 +308,7 @@ public class FinancialTracker {
         }
 
         if (!running) {
-            System.out.println("No transactions found for vendor: " + vendor);
+            System.err.println("No transactions found for vendor: " + vendor);
         }
     }
 }

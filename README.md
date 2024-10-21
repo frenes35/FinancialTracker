@@ -45,7 +45,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 - Java 17.
 
 ## Demo
-- Add deposit added, ![Add deposit.png](imgs%2FAdd%20deposit.png)
+- Add deposit added,![Add-deposit.png](imgs%2FAdd-deposit.png)
 - Add Payment added, ![Add Payment.png](imgs%2FAdd%20Payment.png)
 - Ledger Menu added, ![Ledger Menu.png](imgs%2FLedger%20Menu.png)
 - Previous Year added, ![Previous Year.png](imgs%2FPrevious%20Year.png)
